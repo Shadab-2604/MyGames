@@ -93,69 +93,70 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const themeToggle = document.getElementById('themeToggle');
-            const body = document.body;
-            const logoImage = document.getElementById('logoImage');
-            const themeIcon = document.getElementById('themeIcon');
-            const navLinks = document.querySelectorAll('.nav-link');
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const logoImage = document.getElementById('logoImage');
+    const themeIcon = document.getElementById('themeIcon');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-            // Check saved theme preference
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            body.classList.add(`${currentTheme}-mode`);
-            updateThemeImages(currentTheme);
+    // Check saved theme preference
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    body.classList.add(`${currentTheme}-mode`);
+    updateThemeImages(currentTheme);
 
-            function updateThemeImages(theme) {
-                if (theme === 'dark') {
-                    logoImage.src = 'imgs/MyGamesD.webp';
-                    themeIcon.src = 'imgs/sun.webp';
-                    // Update text colors for dark mode
-                    navLinks.forEach(link => {
-                        link.style.color = '#ffffff';
-                    });
-                } else {
-                    logoImage.src = 'imgs/MyGames.webp';
-                    themeIcon.src = 'imgs/moon.webp';
-                    // Update text colors for light mode
-                    navLinks.forEach(link => {
-                        link.style.color = '#333333';
-                    });
-                }
-            }
-
-            themeToggle.addEventListener('click', () => {
-                const isDark = body.classList.contains('dark-mode');
-                body.classList.remove(isDark ? 'dark-mode' : 'light-mode');
-                body.classList.add(isDark ? 'light-mode' : 'dark-mode');
-                localStorage.setItem('theme', isDark ? 'light' : 'dark');
-                updateThemeImages(isDark ? 'light' : 'dark');
+    function updateThemeImages(theme) {
+        if (theme === 'dark') {
+            logoImage.src = 'imgs/MyGamesD.webp';  // Ensure this image exists
+            themeIcon.src = 'imgs/sun.webp';
+            // Update text colors for dark mode
+            navLinks.forEach(link => {
+                link.style.color = '#ffffff';
             });
-
-            // Hamburger menu functionality
-            const hamburger = document.querySelector('.hamburger');
-            const navLinksContainer = document.querySelector('.nav-links');
-            const overlay = document.querySelector('.overlay');
-
-            function toggleMenu() {
-                hamburger.classList.toggle('active');
-                navLinksContainer.classList.toggle('active');
-                overlay.classList.toggle('active');
-                document.body.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : '';
-            }
-
-            hamburger.addEventListener('click', toggleMenu);
-            overlay.addEventListener('click', toggleMenu);
-
-            // Close menu when clicking nav links
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navLinksContainer.classList.contains('active')) {
-                        toggleMenu();
-                    }
-                });
+        } else {
+            logoImage.src = 'imgs/MyGames.webp';  // Ensure this image exists
+            themeIcon.src = 'imgs/moon.webp';
+            // Update text colors for light mode
+            navLinks.forEach(link => {
+                link.style.color = '#333333';
             });
+        }
+    }
 
-            createGameCards();
+    themeToggle.addEventListener('click', () => {
+        const isDark = body.classList.contains('dark-mode');
+        body.classList.remove(isDark ? 'dark-mode' : 'light-mode');
+        body.classList.add(isDark ? 'light-mode' : 'dark-mode');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        updateThemeImages(isDark ? 'light' : 'dark');
+    });
+
+    // Hamburger menu functionality
+    const hamburger = document.querySelector('.hamburger');
+    const navLinksContainer = document.querySelector('.nav-links');
+    const overlay = document.querySelector('.overlay');
+
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        navLinksContainer.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking nav links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinksContainer.classList.contains('active')) {
+                toggleMenu();
+            }
         });
+    });
+
+    createGameCards();
+});
+
     </script>
 </body>
 </html>
