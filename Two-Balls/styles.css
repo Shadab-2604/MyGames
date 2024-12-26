@@ -1,89 +1,43 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    flex-direction: column;
+    margin: 0;
+    background-color: #f0f0f0;
 }
 
-#game-container {
+.container {
     text-align: center;
-    background-color: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
-    margin-bottom: 20px;
+    color: #333;
 }
 
-#score {
-    font-size: 20px;
-    margin-bottom: 20px;
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
 }
 
-#game-area {
-    width: 400px;
-    height: 300px;
-    background-color: #e0e0e0;
-    position: relative;
-    overflow: hidden;
-    border: 2px solid #ccc;
-    margin-bottom: 20px;
+#gameCanvas {
+    border: 2px solid #333;
+    background-color: #fff;
 }
 
-#mole {
-    width: 50px;
-    height: 50px;
-    background-color: black;
-    border-radius: 50%;
-    position: absolute;
-    display: none; /* Initially hide the mole */
-    transition: all 0.3s ease-out;
-}
-
-#start-btn {
+#startButton {
+    margin-top: 10px;
     padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-#start-btn:active {
+#startButton:hover {
     background-color: #45a049;
-}
-
-@media (max-width: 600px) {
-    #game-area {
-        width: 90%;
-        height: 200px;
-    }
-
-    #mole {
-        width: 40px;
-        height: 40px;
-    }
-}
-#lives {
-    font-size: 1.5em;
-    margin-top: 10px;
-    color: red;
-}
-
-#score {
-    font-size: 1.5em;
-    margin-top: 10px;
-    color: green;
 }

@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whack A Mole</title>
+    <title>Ball Clicker Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Two-Balls</h1>
-        <button id="start-btn">Start Game</button>
-        <div id="score">Score: 0</div>
-        <div id="lives">Lives: 3</div> <!-- Display for lives -->
-        <div id="game-area">
-            <div id="mole"></div>
+        <h1>Ball Clicker Game</h1>
+        <div class="game-info">
+            <p>Score: <span id="score">0</span></p>
+            <p>Lives: <span id="lives">3</span></p>
         </div>
+        <canvas id="gameCanvas"></canvas>
+        <button id="startButton">Start Game</button>
     </div>
     <script src="script.js"></script>
 </body>
