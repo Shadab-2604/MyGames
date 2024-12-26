@@ -1,0 +1,192 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #2d2d2d;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #3d3d3d;
+    position: relative;
+}
+
+.logo img {
+    height: 50px;  /* Adjust this value to match your desired logo size */
+    width: auto;
+    display: block;
+}
+
+/* Update the existing logo class */
+.logo {
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+
+/* Add media query for responsive logo size */
+@media (max-width: 768px) {
+    .logo img {
+        height: 30px;  /* Slightly smaller on mobile */
+    }
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #cccccc;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+/* Game Grid */
+.game-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.game-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #3d3d3d;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.game-grid {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.game-card {
+    background-color: #2d2d2d;
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    background-color: #3d3d3d;
+}
+
+.game-image {
+    width: 100%;
+    height: 200px;
+    background-color: #3d3d3d;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.game-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.game-description {
+    color: #cccccc;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        background-color: #2d2d2d;
+        flex-direction: column;
+        padding: 80px 40px;
+        transition: right 0.3s ease;
+        gap: 2rem;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .hamburger.active span:first-child {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:last-child {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    .game-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .game-card {
+        margin: 0;
+    }
+}
+
+/* Overlay when mobile menu is open */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.overlay.active {
+    display: block;
+}

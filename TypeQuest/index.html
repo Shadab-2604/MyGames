@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeQuest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>TypeQuest</h1>
+      <p>Test your typing speed and accuracy!</p>
+    </header>
+
+    <div class="settings">
+      <textarea id="customText" placeholder="Enter custom text or use default text..."></textarea>
+      <div class="timers">
+        <button class="timer-btn" data-time="15">15s</button>
+        <button class="timer-btn" data-time="30">30s</button>
+        <button class="timer-btn" data-time="45">45s</button>
+        <button class="timer-btn" data-time="60">60s</button>
+      </div>
+    </div>
+
+    <div class="typing-area">
+      <div id="text-display"></div>
+      <textarea id="text-input" placeholder="Start typing..." disabled></textarea>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

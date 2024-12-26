@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Game</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #faf8ef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #bbada0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #score-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .score-box {
+            background-color: #eee4da;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #776e65;
+        }
+
+        #game-board {
+            display: grid;
+            grid-template-rows: repeat(4, 80px);
+            grid-template-columns: repeat(4, 80px);
+            gap: 10px;
+            background-color: #bbada0;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .tile {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #cdc1b4;
+            border-radius: 5px;
+            font-size: 1.5em;
+            color: #776e65;
+            font-weight: bold;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .tile[data-value="2"] { background-color: #eee4da; }
+        .tile[data-value="4"] { background-color: #ede0c8; }
+        .tile[data-value="8"] { background-color: #f2b179; color: #f9f6f2; }
+        .tile[data-value="16"] { background-color: #f59563; color: #f9f6f2; }
+        .tile[data-value="32"] { background-color: #f67c5f; color: #f9f6f2; }
+        .tile[data-value="64"] { background-color: #f65e3b; color: #f9f6f2; }
+        .tile[data-value="128"] { background-color: #edcf72; color: #f9f6f2; }
+        .tile[data-value="256"] { background-color: #edcc61; color: #f9f6f2; }
+        .tile[data-value="512"] { background-color: #edc850; color: #f9f6f2; }
+        .tile[data-value="1024"] { background-color: #edc53f; color: #f9f6f2; }
+        .tile[data-value="2048"] { background-color: #edc22e; color: #f9f6f2; }
+
+        .tile-empty {
+            width: 80px;
+            height: 80px;
+            background-color: #cdc1b4;
+            border-radius: 5px;
+        }
+
+        .slide {
+            animation: slide 0.2s ease;
+        }
+
+        @keyframes slide {
+            from {
+                transform: translateX(0) translateY(0);
+            }
+            to {
+                transform: translateX(0) translateY(0);
+            }
+        }
+
+        #restart-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #8f7a66;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        #restart-button:hover {
+            background-color: #776e65;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="score-container">
+            <div class="score-box">Score: <span id="score">0</span></div>
+            <div class="score-box">High Score: <span id="high-score">0</span></div>
+        </div>
+        <div id="game-board"></div>
+        <button id="restart-button">Restart Game</button>
+    </div>
+
+    <script>
+        const boardSize = 4;
+        let board = [];
+        let score = 0;
+        let highScore = localStorage.getItem('2048-high-score') || 0;
+        const gameBoard = document.getElementById('game-board');
+        const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('high-score');
+        const restartButton = document.getElementById('restart-button');
+
+        highScoreElement.textContent = highScore;
+
+        function createBoard() {
+            board = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
+            gameBoard.innerHTML = '';
+            for (let row = 0; row < boardSize; row++) {
+                for (let col = 0; col < boardSize; col++) {
+                    const tile = document.createElement('div');
+                    tile.classList.add('tile-empty');
+                    gameBoard.appendChild(tile);
+                }
+            }
+        }
+
+        function renderBoard() {
+            gameBoard.innerHTML = '';
+            for (let row = 0; row < boardSize; row++) {
+                for (let col = 0; col < boardSize; col++) {
+                    const value = board[row][col];
+                    const tile = document.createElement('div');
+                    tile.classList.add(value ? 'tile' : 'tile-empty');
+                    if (value) {
+                        tile.textContent = value;
+                        tile.dataset.value = value;
+                        tile.classList.add('slide');
+                    }
+                    gameBoard.appendChild(tile);
+                }
+            }
+        }
+
+        function addRandomTile() {
+            const emptyTiles = [];
+            for (let row = 0; row < boardSize; row++) {
+                for (let col = 0; col < boardSize; col++) {
+                    if (board[row][col] === 0) emptyTiles.push({ row, col });
+                }
+            }
+
+            if (emptyTiles.length > 0) {
+                const { row, col } = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
+                board[row][col] = Math.random() < 0.9 ? 2 : 4;
+            }
+        }
+
+        function slide(row) {
+            const newRow = row.filter(val => val);
+            while (newRow.length < boardSize) newRow.push(0);
+            return newRow;
+        }
+
+        function combine(row) {
+            for (let i = 0; i < row.length - 1; i++) {
+                if (row[i] && row[i] === row[i + 1]) {
+                    row[i] *= 2;
+                    row[i + 1] = 0;
+                    score += row[i];
+                }
+            }
+            return row;
+        }
+
+        function slideAndCombineRow(row) {
+            return slide(combine(slide(row)));
+        }
+
+        function rotateBoard() {
+            const newBoard = board[0].map((_, colIndex) => board.map(row => row[colIndex]).reverse());
+            board = newBoard;
+        }
+
+        function handleMove(direction) {
+            let rotated = false;
+            if (direction === 'up' || direction === 'down') {
+                rotateBoard();
+                rotated = true;
+            }
+
+            if (direction === 'right' || direction === 'down') {
+                board = board.map(row => row.reverse());
+            }
+
+            const newBoard = board.map(slideAndCombineRow);
+
+            if (direction === 'right' || direction === 'down') {
+                newBoard.forEach(row => row.reverse());
+            }
+
+            if (rotated) {
+                rotateBoard();
+                rotateBoard();
+                rotateBoard();
+            }
+
+            if (JSON.stringify(board) !== JSON.stringify(newBoard)) {
+                board = newBoard;
+                addRandomTile();
+                renderBoard();
+                updateScore();
+                if (isGameOver()) {
+                    alert('Game Over!');
+                    saveHighScore();
+                }
+            }
+        }
+
+        function isGameOver() {
+            for (let row = 0; row < boardSize; row++) {
+                for (let col = 0; col < boardSize; col++) {
+                    if (board[row][col] === 0) return false;
+                    if (col < boardSize - 1 && board[row][col] === board[row][col + 1]) return false;
+                    if (row < boardSize - 1 && board[row][col] === board[row + 1][col]) return false;
+                }
+            }
+            return true;
+        }
+
+        function updateScore() {
+            scoreElement.textContent = score;
+            if (score > highScore) {
+                highScore = score;
+                highScoreElement.textContent = highScore;
+                localStorage.setItem('2048-high-score', highScore);
+            }
+        }
+
+        function saveHighScore() {
+            localStorage.setItem('2048-high-score', highScore);
+        }
+
+        restartButton.addEventListener('click', () => {
+    score = 0;
+    board = [];
+    scoreElement.textContent = score;
+    createBoard();
+    addRandomTile();
+    addRandomTile();
+    renderBoard();
+});
+
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft') handleMove('left');
+            if (e.key === 'ArrowRight') handleMove('right');
+            if (e.key === 'ArrowUp') handleMove('up');
+            if (e.key === 'ArrowDown') handleMove('down');
+        });
+
+        let touchStartX, touchStartY;
+        document.addEventListener('touchstart', e => {
+            e.preventDefault();
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: false });
+
+        document.addEventListener('touchend', e => {
+            e.preventDefault();
+            const deltaX = e.changedTouches[0].clientX - touchStartX;
+            const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX > 0) handleMove('right');
+                else handleMove('left');
+            } else {
+                if (deltaY > 0) handleMove('down');
+                else handleMove('up');
+            }
+        }, { passive: false });
+
+        createBoard();
+        addRandomTile();
+        addRandomTile();
+        renderBoard();
+    </script>
+</body>
+</html>

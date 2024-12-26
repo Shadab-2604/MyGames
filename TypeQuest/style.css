@@ -1,0 +1,126 @@
+/* Responsive design */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #1e1e2f;
+    color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #2a2a40;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+    color: #ffa62b;
+  }
+  
+  header p {
+    margin-bottom: 20px;
+    color: #ccc;
+  }
+  
+  .settings textarea {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #333;
+    color: #eee;
+  }
+  
+  .timers {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .timer-btn {
+    flex: 1 1 48%;
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: #eee;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .timer-btn:hover {
+    background-color: #ffa62b;
+    color: #000;
+  }
+  
+  .typing-area #text-display {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: #ffa62b;
+    word-wrap: break-word;
+    min-height: 60px;
+  }
+  
+  .typing-area textarea {
+    width: 100%;
+    height: 100px;
+    background-color: #333;
+    color: #eee;
+    border-radius: 5px;
+    border: 1px solid #555;
+    padding: 10px;
+  }
+  
+  /* Results Page */
+  .results p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  .back-btn {
+    background-color: #ffa62b;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .back-btn:hover {
+    background-color: #444;
+    color: #eee;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2rem;
+    }
+  
+    .typing-area textarea {
+      height: 80px;
+    }
+  
+    .results p {
+      font-size: 1rem;
+    }
+  
+    .back-btn {
+      padding: 8px 16px;
+    }
+  }
+  

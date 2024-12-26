@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeQuest - Results</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>TypeQuest Results</h1>
+    </header>
+
+    <div class="results">
+      <p id="final-wpm">WPM: 0</p>
+      <p id="final-accuracy">Accuracy: 0%</p>
+      <p id="final-chars">Characters Typed: 0</p>
+      <button onclick="window.location.href='index.html'" class="back-btn">Try Again</button>
+    </div>
+  </div>
+
+  <script>
+    // Load results from localStorage
+    const wpm = localStorage.getItem("wpm");
+    const accuracy = localStorage.getItem("accuracy");
+    const chars = localStorage.getItem("chars");
+
+    document.getElementById("final-wpm").textContent = `WPM: ${wpm}`;
+    document.getElementById("final-accuracy").textContent = `Accuracy: ${accuracy}%`;
+    document.getElementById("final-chars").textContent = `Characters Typed: ${chars}`;
+  </script>
+</body>
+</html>

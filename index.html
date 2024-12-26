@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Homepage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <img src="imgs/Mygames.png" alt="MyGames Logo">
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Overlay for mobile menu -->
+    <div class="overlay"></div>
+
+    <!-- Game Grid -->
+    <div class="game-grid" id="gameGrid">
+        <!-- Game cards will be inserted here by JavaScript -->
+    </div>
+
+    <script>
+        // Sample game data
+        const games = [
+            {
+                id: 1,
+                title: "2048",
+                description: "Classic number puzzle game - combine tiles to reach 2048!",
+                image: "imgs/2048.png",
+                link: "2048/index.html"
+            },
+            {
+                id: 2,
+                title: "Snake",
+                description: "Strategic puzzle game that will challenge your mind.",
+                image: "imgs/snake.png",
+                link: "Snake/index.html"
+            },
+            {
+                id: 3,
+                title: "Two-Balls",
+                description: "Action-packed racing game with multiple tracks.",
+                image: "imgs/Two-Balls.png",
+                link: "Two-Balls/index.html"
+            },
+            {
+                id: 4,
+                title: "TypeQuest",
+                description: "Multiplayer battle arena with various characters.",
+                image: "imgs/TypeQuest.png",
+                link: "TypeQuest/index.html"
+            },
+        ];
+
+    // Function to create game cards
+function createGameCards() {
+    const gameGrid = document.getElementById('gameGrid');
+    
+    games.forEach(game => {
+        const gameCard = document.createElement('div');
+        gameCard.className = 'game-card';
+        
+        gameCard.innerHTML = `
+            <div class="game-image">
+                <img src="${game.image}" alt="${game.title}">
+            </div>
+            <h3 class="game-title">${game.title}</h3>
+            <p class="game-description">${game.description}</p>
+        `;
+
+        gameCard.addEventListener('click', () => {
+            window.location.href = game.link;
+        });
+
+        gameGrid.appendChild(gameCard);
+    });
+}
+        // Hamburger menu functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.overlay');
+
+            function toggleMenu() {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            }
+
+            hamburger.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            createGameCards();
+        });
+    </script>
+</body>
+</html>
