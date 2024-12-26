@@ -190,3 +190,114 @@ nav {
 .overlay.active {
     display: block;
 }
+
+/* Theme toggle button */
+.theme-toggle {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.theme-toggle button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.theme-toggle img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Light/Dark mode styles */
+.light-mode {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.light-mode nav {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.light-mode .game-card {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.dark-mode nav {
+    background-color: #2d2d2d;
+    border-bottom: 1px solid #3d3d3d;
+}
+
+.dark-mode .game-card {
+    background-color: #2d2d2d;
+}
+
+/* Ensure proper hamburger color in both themes */
+.light-mode .hamburger span {
+    background-color: #333333;
+}
+
+.dark-mode .hamburger span {
+    background-color: #ffffff;
+}
+/* Theme-specific text colors */
+.light-mode {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.light-mode .game-title {
+    color: #333333;
+}
+
+.light-mode .game-description {
+    color: #666666;
+}
+
+.light-mode .nav-link {
+    color: #333333;
+}
+
+.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.dark-mode .game-title {
+    color: #ffffff;
+}
+
+.dark-mode .game-description {
+    color: #cccccc;
+}
+
+.dark-mode .nav-link {
+    color: #ffffff;
+}
+
+/* Hover effects for nav links */
+.light-mode .nav-link:hover {
+    color: #000000;
+}
+
+.dark-mode .nav-link:hover {
+    color: #cccccc;
+}
+
+/* Game card background colors */
+.light-mode .game-card {
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dark-mode .game-card {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
