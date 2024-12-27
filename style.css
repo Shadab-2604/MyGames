@@ -354,3 +354,68 @@ nav {
         flex-wrap: wrap;
     }
 }
+/* Add to your existing CSS */
+.filter-container {
+    margin-right: 20px;
+}
+
+.filter-container select,
+.mobile-filters select {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.light-mode .filter-container select,
+.light-mode .mobile-filters select {
+    background-color: #eaeaea;
+    color: #333;
+}
+
+.dark-mode .filter-container select,
+.dark-mode .mobile-filters select {
+    background-color: #3d3d3d;
+    color: #fff;
+}
+
+/* Update the mobile filters styles */
+.mobile-filters {
+    display: none;
+    width: 100%;
+    padding: 10px 20px;
+    position: fixed;
+    top: 70px;
+    background: inherit;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-filters select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .nav-links.active .mobile-filters {
+        display: block;
+    }
+
+    .nav-links {
+        padding-top: 120px;
+    }
+    
+    .light-mode .mobile-filters {
+        background-color: #f5f5f5;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .dark-mode .mobile-filters {
+        background-color: #2d2d2d;
+        border-bottom: 1px solid #3d3d3d;
+    }
+}

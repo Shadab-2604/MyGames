@@ -8,29 +8,43 @@
 </head>
 <body class="light-mode">
     <!-- Updated nav section in index.html -->
-<nav>
-    <div class="logo">
-        <img src="imgs/MyGames.webp" alt="MyGames Logo" id="logoImage">
-    </div>
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search games...">
-    </div>
-    <div class="theme-toggle">
-        <button id="themeToggle">
-            <img src="imgs/moon.webp" alt="Theme Toggle" id="themeIcon">
-        </button>
-    </div>
-    <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <div class="nav-links">
-        <a href="#home" class="nav-link">Home</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#contact" class="nav-link">Contact</a>
-    </div>
-</nav>
+    <nav>
+        <div class="logo">
+            <img src="imgs/MyGames.webp" alt="MyGames Logo" id="logoImage">
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search...">
+        </div>
+        <div class="filter-container">
+            <select id="typeFilter">
+                <option value="all">All</option>
+                <option value="games">Games</option>
+                <option value="apps">Apps</option>
+            </select>
+        </div>
+        <div class="theme-toggle">
+            <button id="themeToggle">
+                <img src="imgs/moon.webp" alt="Theme Toggle" id="themeIcon">
+            </button>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <div class="mobile-filters">
+                <select id="mobileTypeFilter">
+                    <option value="all">All</option>
+                    <option value="games">Games</option>
+                    <option value="apps">Apps</option>
+                </select>
+            </div>
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
 
     <!-- Overlay for mobile menu -->
     <div class="overlay"></div>
@@ -47,42 +61,48 @@
         title: "2048",
         description: "Combine tiles to reach 2048 in this classic number puzzle game.",
         image: "imgs/2048.webp",
-        link: "2048/index.html"
+        link: "2048/index.html",
+        isApp: false
     },
     {
         id: 2,
         title: "Snake",
         description: "Control a snake, eat food, and avoid colliding with walls or itself.",
         image: "imgs/snake.webp",
-        link: "Snake/index.html"
+        link: "Snake/index.html",
+        isApp: false
     },
     {
         id: 3,
         title: "Two-Balls",
         description: "Race with two balls (red and black). Click the red ball three times and fail.",
         image: "imgs/Two-Balls.webp",
-        link: "Two-Balls/index.html"
+        link: "Two-Balls/index.html",
+        isApp: false
     },
     {
         id: 4,
         title: "TypeQuest",
         description: "A multiplayer typing battle game with various characters.",
         image: "imgs/TypeQuest.webp",
-        link: "TypeQuest/index.html"
+        link: "TypeQuest/index.html",
+        isApp: true
     },
     {
         id: 5,
         title: "TicTacToe",
         description: "Classic multiplayer Tic-Tac-Toe, form lines to win.",
         image: "imgs/TicTacToe.webp",
-        link: "TicTacToe/index.html"
+        link: "TicTacToe/index.html",
+        isApp: false
     },
     {
         id: 6,
         title: "Brick Blast",
         description: "a type of brick-breaking game where players aim to clear levels by shooting a ball to demolish bricks",
         image: "imgs/Brick-Blast.webp",
-        link: "Brick-Blast/index.html"
+        link: "Brick-Blast/index.html",
+        isApp: false
     }
     ,
     {
@@ -90,30 +110,70 @@
         title: "Air Hocky",
         description: "Air hockey game apps offer a digital rendition of the classic tabletop game, allowing players to engage in fast-paced, competitive gameplay on their mobile devices.",
         image: "imgs/Air-Hocky.webp",
-        link: "Air-Hocky/index.html"
+        link: "Air-Hocky/index.html",
+        isApp: false
     },
     {
         id: 8,
         title: "Chess",
         description: "Chess is a two-player abstract strategy board game played on a square board with 64 squares, arranged in an 8x8 grid.",
         image: "imgs/chess.webp",
-        link: "chess/index.html"
+        link: "chess/index.html",
+        isApp: false
     },
     {
         id: 9,
         title: "Spin the bottle",
         description: "Spin the bottle is a game where players try to guess the direction of a spinning arrow.",
         image: "imgs/spin-the-bottle.webp",
-        link: "spin-the-bottle/index.html"
+        link: "spin-the-bottle/index.html",
+        isApp: false
     },
     {
         id: 10,
         title: "Flappy Bird",
         description: "The player clicks or taps the screen to make the bird flap its wings and navigate through the pipes.",
         image: "imgs/flappy-bird.webp",
-        link: "Flappy-Bird/index.html"
+        link: "Flappy-Bird/index.html",
+        isApp: false
     }
 ];
+
+document.addEventListener('DOMContentLoaded', () => {
+    const typeFilter = document.getElementById('typeFilter');
+    const mobileTypeFilter = document.getElementById('mobileTypeFilter');
+    const searchInput = document.getElementById('searchInput');
+
+    function filterGames() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filterValue = typeFilter.value;
+        const gameCards = document.querySelectorAll('.game-card');
+        
+        games.forEach((game, index) => {
+            const card = gameCards[index];
+            const matchesSearch = game.title.toLowerCase().includes(searchTerm) || 
+                                game.description.toLowerCase().includes(searchTerm);
+            const matchesFilter = filterValue === 'all' || 
+                                (filterValue === 'games' && !game.isApp) || 
+                                (filterValue === 'apps' && game.isApp);
+            
+            card.style.display = matchesSearch && matchesFilter ? 'block' : 'none';
+        });
+    }
+
+    // Sync mobile and desktop filters
+    typeFilter.addEventListener('change', () => {
+        mobileTypeFilter.value = typeFilter.value;
+        filterGames();
+    });
+
+    mobileTypeFilter.addEventListener('change', () => {
+        typeFilter.value = mobileTypeFilter.value;
+        filterGames();
+    });
+
+    searchInput.addEventListener('input', filterGames);
+});
 
         function createGameCards() {
             const gameGrid = document.getElementById('gameGrid');
@@ -224,6 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
     </script>
 </body>
 </html>
