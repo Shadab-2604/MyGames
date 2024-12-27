@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Hockey</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Air Hockey</h1>
+        <div id="game-menu">
+            <button id="single-player">Single Player</button>
+            <button id="two-player">Two Players</button>
+        </div>
+        <div id="game-container" class="hidden">
+            <canvas id="gameCanvas"></canvas>
+            <div id="score">
+                <span id="player1-score">0</span> - <span id="player2-score">0</span>
+            </div>
+        </div>
+        <div id="controls" class="hidden">
+            <p>Player 1: Use W/S keys or touch top half</p>
+            <p id="player2-controls">Player 2: Use Up/Down arrow keys or touch bottom half</p>
+        </div>
+        <button id="restart" class="hidden">Restart Game</button>
+        <!-- Make sure the Back button is initially hidden -->
+        <button id="back" class="hidden">Home</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
