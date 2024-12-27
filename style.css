@@ -301,3 +301,56 @@ nav {
     background-color: #2d2d2d;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
+/* Add to style.css */
+.search-container {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 20px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: inherit;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.light-mode #searchInput {
+    background-color: #eaeaea;
+    color: #333;
+}
+
+.dark-mode #searchInput {
+    background-color: #3d3d3d;
+    color: #fff;
+}
+
+#searchInput:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.light-mode #searchInput:focus {
+    background-color: #f0f0f0;
+}
+
+.dark-mode #searchInput:focus {
+    background-color: #444;
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        order: 1;
+        width: 100%;
+        margin: 10px 0;
+        padding: 0 10px;
+    }
+    
+    nav {
+        flex-wrap: wrap;
+    }
+}

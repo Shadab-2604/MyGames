@@ -7,28 +7,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="light-mode">
-    <!-- Navigation Bar -->
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="logo">
-            <img src="imgs/MyGames.webp" alt="MyGames Logo" id="logoImage">
-        </div>
-        <div class="theme-toggle">
-            <button id="themeToggle">
-                <img src="imgs/moon.webp" alt="Theme Toggle" id="themeIcon">
-            </button>
-        </div>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="nav-links">
-            <a href="#home" class="nav-link">Home</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </div>
-    </nav>
+    <!-- Updated nav section in index.html -->
+<nav>
+    <div class="logo">
+        <img src="imgs/MyGames.webp" alt="MyGames Logo" id="logoImage">
+    </div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search games...">
+    </div>
+    <div class="theme-toggle">
+        <button id="themeToggle">
+            <img src="imgs/moon.webp" alt="Theme Toggle" id="themeIcon">
+        </button>
+    </div>
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="nav-links">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </div>
+</nav>
 
     <!-- Overlay for mobile menu -->
     <div class="overlay"></div>
@@ -201,6 +203,27 @@
     createGameCards();
 });
 
+
+// Add this to your existing script
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const gameCards = document.querySelectorAll('.game-card');
+        
+        gameCards.forEach(card => {
+            const title = card.querySelector('.game-title').textContent.toLowerCase();
+            const description = card.querySelector('.game-description').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>
