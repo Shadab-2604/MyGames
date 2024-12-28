@@ -88,7 +88,7 @@ function isValid(board, row, col, num) {
 function renderGrid() {
     sudokuGrid.innerHTML = '';
     sudokuGrid.style.gridTemplateColumns = `repeat(${size}, auto)`;
-    
+
     for (let row = 0; row < size; row++) {
         for (let col = 0; col < size; col++) {
             const cell = document.createElement('div');
@@ -98,8 +98,9 @@ function renderGrid() {
                 cell.classList.add('given');
             } else {
                 const input = document.createElement('input');
-                input.type = 'text';
-                input.maxLength = 1;
+                input.type = 'tel'; // Ensures the number pad is shown
+                input.inputMode = 'numeric'; // Extra assurance for numeric entry
+                input.maxLength = 1; // Restrict input to a single character
                 input.addEventListener('input', (e) => handleInput(e, row, col));
                 cell.appendChild(input);
             }
@@ -109,6 +110,7 @@ function renderGrid() {
         }
     }
 }
+
 
 function checkWin() {
     for (let row = 0; row < size; row++) {
