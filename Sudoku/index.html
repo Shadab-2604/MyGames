@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sudoku</h1>
+        <div id="home-screen">
+            <h2>Select Difficulty:</h2>
+            <button id="easy">Easy (4x4)</button>
+            <button id="medium">Medium (9x9)</button>
+            <button id="hard">Hard (16x16)</button>
+        </div>
+        <div id="game-screen" style="display: none;">
+            <div id="sudoku-grid"></div>
+            <div class="buttons">
+                <button id="restart">Restart</button>
+                <button id="home">Home</button>
+                <button id="instructions">Instructions</button>
+            </div>
+        </div>
+        <div id="instructions-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>How to Play Sudoku</h2>
+                <ol>
+                    <li>Fill in the empty cells with numbers.</li>
+                    <li>Each row must contain the numbers 1-9 (or 1-4 for 4x4, 1-16 for 16x16) without repeats.</li>
+                    <li>Each column must contain the numbers 1-9 (or 1-4 for 4x4, 1-16 for 16x16) without repeats.</li>
+                    <li>Each 3x3 subsection (or 2x2 for 4x4, 4x4 for 16x16) must contain the numbers 1-9 (or 1-4 for 4x4, 1-16 for 16x16) without repeats.</li>
+                    <li>The game is complete when all cells are filled correctly.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
