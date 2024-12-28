@@ -110,14 +110,54 @@ function renderGrid() {
     }
 }
 
+function checkWin() {
+    for (let row = 0; row < size; row++) {
+        for (let col = 0; col < size; col++) {
+            if (grid[row][col] !== solution[row][col]) {
+                return false; // The puzzle is incorrect or incomplete
+            }
+        }
+    }
+    return true; // The puzzle is complete and correct
+}
+
+function showWinAnimation() {
+    const cells = document.querySelectorAll('#sudoku-grid .cell');
+    let delay = 0;
+
+    // Animate numbers disappearing
+    cells.forEach((cell, index) => {
+        if (cell.querySelector('input')) {
+            cell.querySelector('input').style.visibility = 'hidden';
+        } else {
+            cell.style.visibility = 'hidden';
+        }
+        cell.style.animation = `disappear 0.5s ${delay}s forwards`;
+        delay += 0.05;
+    });
+
+    // After animation, display "You Won" message
+    setTimeout(() => {
+        sudokuGrid.innerHTML = '';
+        const message = document.createElement('div');
+        message.className = 'win-message';
+        message.textContent = 'You Won!';
+        sudokuGrid.appendChild(message);
+    }, cells.length * 50); // Adjust timing based on the number of cells
+}
+
 function handleInput(e, row, col) {
     const value = e.target.value;
     if (value === '' || (parseInt(value) >= 1 && parseInt(value) <= size)) {
         grid[row][col] = value === '' ? 0 : parseInt(value);
+        if (checkWin()) {
+            showWinAnimation();
+        }
     } else {
         e.target.value = '';
     }
 }
+
 
 function restartGame() {
     generatePuzzle();
