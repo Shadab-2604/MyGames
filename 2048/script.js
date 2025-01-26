@@ -143,4 +143,12 @@ gameBoard.addEventListener('touchend', (e) => {
 
 newGameButton.addEventListener('click', initGame);
 
+
+// Disable pull-to-refresh
+document.addEventListener('touchmove', (e) => {
+    if (e.touches[0].pageY > 0 && window.scrollY === 0) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+  
 initGame();

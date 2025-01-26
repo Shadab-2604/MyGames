@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Dalgona Candy Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            text-align: center;
+        }
+        canvas {
+            border: 2px solid #8B4513;
+            background-color: #FFF8DC;
+        }
+        #startButton, #resetButton {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        #startButton:hover, #resetButton:hover {
+            background-color: #45a049;
+        }
+        #resetButton {
+            display: none;
+            background-color: #f44336;
+        }
+        #resetButton:hover {
+            background-color: #d32f2f;
+        }
+        #message {
+            margin-top: 10px;
+            font-weight: bold;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Improved Dalgona Candy Game</h1>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <div>
+            <button id="startButton">Start Game</button>
+            <button id="resetButton">Play Again</button>
+        </div>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('startButton');
+        const resetButton = document.getElementById('resetButton');
+        const messageDiv = document.getElementById('message');
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let gameState = 'ready';
+        let pathLength = 0;
+        let currentShape;
+        let breakingParticles = [];
+
+        const shapes = [
+            { name: 'triangle', points: [[200, 300], [300, 300], [250, 200]] },
+            { name: 'star', points: [[200, 100], [250, 200], [350, 200], [275, 275], [300, 375], [200, 325], [100, 375], [125, 275], [50, 200], [150, 200]] },
+            { name: 'umbrella', points: [[200, 100], [300, 300], [250, 300], [250, 350], [150, 300], [100, 300]] },
+        ];
+
+        function getRandomShape() {
+            return shapes[Math.floor(Math.random() * shapes.length)];
+        }
+
+        function drawCookie() {
+            ctx.fillStyle = '#C4A484';
+            ctx.beginPath();
+            ctx.arc(200, 200, 190, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.strokeStyle = '#8B4513';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(currentShape.points[0][0], currentShape.points[0][1]);
+            for (let i = 1; i < currentShape.points.length; i++) {
+                ctx.lineTo(currentShape.points[i][0], currentShape.points[i][1]);
+            }
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        function startGame() {
+            gameState = 'playing';
+            startButton.style.display = 'none';
+            resetButton.style.display = 'none';
+            messageDiv.textContent = '';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            currentShape = getRandomShape();
+            drawCookie();
+            pathLength = 0;
+        }
+
+        function endGame(won) {
+            gameState = 'ended';
+            resetButton.style.display = 'inline-block';
+            if (won) {
+                messageDiv.textContent = 'You won!';
+            } else {
+                messageDiv.textContent = 'Game over! The cookie broke.';
+                createBreakingAnimation();
+            }
+        }
+
+        function resetGame() {
+            startGame();
+        }
+
+        function createBreakingAnimation() {
+            breakingParticles = [];
+            for (let i = 0; i < 100; i++) {
+                breakingParticles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 3 + 1,
+                    dx: (Math.random() - 0.5) * 8,
+                    dy: (Math.random() - 0.5) * 8,
+                    alpha: 1
+                });
+            }
+            animateBreaking();
+        }
+
+        function animateBreaking() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            breakingParticles.forEach((particle, index) => {
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(196, 164, 132, ${particle.alpha})`;
+                ctx.fill();
+
+                particle.x += particle.dx;
+                particle.y += particle.dy;
+                particle.alpha -= 0.02;
+
+                if (particle.alpha <= 0) {
+                    breakingParticles.splice(index, 1);
+                }
+            });
+
+            if (breakingParticles.length > 0) {
+                requestAnimationFrame(animateBreaking);
+            } else {
+                drawCookie();
+            }
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            if (gameState !== 'playing') return;
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing || gameState !== 'playing') return;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.strokeStyle = '#FF0000';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            const dx = e.offsetX - lastX;
+            const dy = e.offsetY - lastY;
+            pathLength += Math.sqrt(dx*dx + dy*dy);
+
+            if (pathLength > 600) {
+                endGame(true);
+            }
+
+            const distanceFromCenter = Math.sqrt(Math.pow(e.offsetX - 200, 2) + Math.pow(e.offsetY - 200, 2));
+            if (distanceFromCenter > 190 || distanceFromCenter < 80) {
+                endGame(false);
+            }
+
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+
+        startButton.addEventListener('click', startGame);
+        resetButton.addEventListener('click', resetGame);
+
+        drawCookie();
+    </script>
+</body>
+</html>
