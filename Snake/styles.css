@@ -13,7 +13,10 @@ body {
     font-family: Arial, sans-serif;
     overflow: hidden; /* Prevent scrolling */
 }
-
+html, body {
+    overscroll-behavior-y: none;
+  }
+  
 #game-container {
     position: relative;
     background-color: #000;

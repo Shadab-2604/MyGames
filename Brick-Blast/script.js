@@ -20,7 +20,13 @@ const BRICK_PADDING = 5;
 
 canvas.width = 400;
 canvas.height = 400;
-
+// Disable pull-to-refresh
+document.addEventListener('touchmove', (e) => {
+    if (e.touches[0].pageY > 0 && window.scrollY === 0) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+  
 class GameObject {
     constructor(x, y, width, height, color) {
         this.x = x;

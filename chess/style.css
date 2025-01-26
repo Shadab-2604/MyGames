@@ -11,7 +11,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+html, body {
+    overscroll-behavior-y: none;
+  }
+  
 body {
     font-family: Arial, sans-serif;
     background: #2c1810;

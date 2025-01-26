@@ -19,7 +19,13 @@ let highScore = parseInt(localStorage.getItem('highScore')) || 0;
 let pipes = [];
 let lastJumpTime;
 let isGameRunning = false;
-
+// Disable pull-to-refresh
+document.addEventListener('touchmove', (e) => {
+    if (e.touches[0].pageY > 0 && window.scrollY === 0) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+  
 const PIPE_SPEEDS = {
     easy: 1,
     medium: 1.5,

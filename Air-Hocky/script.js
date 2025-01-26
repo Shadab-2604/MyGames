@@ -288,6 +288,14 @@ function startGame(mode) {
 }
 
 
+// Disable pull-to-refresh
+document.addEventListener('touchmove', (e) => {
+    if (e.touches[0].pageY > 0 && window.scrollY === 0) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+  
+
 
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas(); // Initialize canvas resizing

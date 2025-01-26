@@ -95,3 +95,8 @@ button:hover {
         font-size: 14px;
     }
 }
+
+html, body {
+    overscroll-behavior-y: none;
+  }
+  
