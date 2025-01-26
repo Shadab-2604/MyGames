@@ -19,10 +19,7 @@ body {
     border-radius: 10px;
     background: linear-gradient(#4EC0CA, #87CEEB);
 }
-html, body {
-    overscroll-behavior-y: none;
-  }
-  
+
 #game-area {
     width: 100%;
     height: 100%;

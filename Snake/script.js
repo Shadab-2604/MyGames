@@ -12,13 +12,7 @@ let food = { x: 0, y: 0 };
 let direction = "RIGHT";
 let score = 0;
 let gameOver = false;
-// Disable pull-to-refresh
-document.addEventListener('touchmove', (e) => {
-    if (e.touches[0].pageY > 0 && window.scrollY === 0) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-  
+
 // Set the canvas size based on the window dimensions
 function resizeCanvas() {
     const gameWidth = window.innerWidth * 0.9; // 90% of screen width

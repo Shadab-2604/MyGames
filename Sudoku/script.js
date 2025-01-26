@@ -28,13 +28,7 @@ function startGame(difficulty) {
     homeScreen.style.display = 'none';
     gameScreen.style.display = 'block';
 }
-// Disable pull-to-refresh
-document.addEventListener('touchmove', (e) => {
-    if (e.touches[0].pageY > 0 && window.scrollY === 0) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-  
+
 function generatePuzzle() {
     solution = [];
     for (let i = 0; i < size; i++) {

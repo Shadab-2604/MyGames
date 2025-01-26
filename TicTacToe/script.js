@@ -23,13 +23,7 @@ const winningConditions = [
     [0, 4, 8],
     [2, 4, 6]
 ];
-// Disable pull-to-refresh
-document.addEventListener('touchmove', (e) => {
-    if (e.touches[0].pageY > 0 && window.scrollY === 0) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-  
+
 function startGame(mode) {
     gameMode = mode;
     gameModeDiv.classList.add('hidden');

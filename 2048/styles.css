@@ -92,8 +92,3 @@ button:hover {
         font-size: 24px;
     }
 }
-
-html, body {
-    overscroll-behavior-y: none;
-  }
-  

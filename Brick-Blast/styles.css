@@ -13,10 +13,7 @@ body {
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: #fff;
 }
-html, body {
-    overscroll-behavior-y: none;
-  }
-  
+
 .container {
     text-align: center;
     background: rgba(255, 255, 255, 0.1);

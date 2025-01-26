@@ -10,9 +10,6 @@ body {
     min-height: 100vh;
     padding: 10px;
   }
-  html, body {
-    overscroll-behavior-y: none;
-  }
   
   .container {
     width: 100%;
